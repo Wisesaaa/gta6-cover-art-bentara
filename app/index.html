@@ -3,20 +3,95 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>BENTARA Cover Studio — Vice Heat</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <header class="top">
+    <div>
+      <h1>BENTARA <span>Cover Studio</span></h1>
+      <p class="tag">Your photos, graded like a Vice City sunset, made into cover art.</p>
+    </div>
+    <p class="steps"><strong>1</strong> Add photos &nbsp;→&nbsp; <strong>2</strong> Place them &nbsp;→&nbsp; <strong>3</strong> Export PNG</p>
+  </header>
+
+  <section class="controls" aria-label="Cover editor controls">
+    <div class="group">
+      <h2>Photos</h2>
+      <label class="file">Add your photos
+        <input id="photos" type="file" accept="image/*" multiple>
+      </label>
+      <div id="strip" class="strip" aria-label="Loaded photos"></div>
+      <p class="hint">Click a photo to place it in the selected panel. Double-click it to fill every panel. Two sample photos are already loaded.</p>
+      <button id="fillAll" type="button" class="ghost">Fill all panels with this photo</button>
+    </div>
+
+    <div class="group">
+      <h2>Layout</h2>
+      <div class="row" role="group" aria-label="Layout">
+        <button type="button" data-layout="vice" class="on">Vice Grid · 6</button>
+        <button type="button" data-layout="hero">Hero Pop · 3</button>
+        <button type="button" data-layout="strip">Strip · 5</button>
+      </div>
+      <h2>Grade</h2>
+      <div class="row" role="group" aria-label="Colour grade">
+        <button type="button" data-grade="sunset" class="on">Sunset</button>
+        <button type="button" data-grade="neon">Neon</button>
+        <button type="button" data-grade="golden">Golden</button>
+        <button type="button" data-grade="noir">Noir</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2 id="panelLabel">Panel 1 of 6</h2>
+      <p class="hint">Click a panel in the preview to select it. Drag it to move the photo, scroll to zoom.</p>
+      <label>Zoom <span id="zoomVal">100%</span>
+        <input id="zoom" type="range" min="1" max="3" step="0.05" value="1">
+      </label>
+      <label>Move left–right
+        <input id="panX" type="range" min="-1" max="1" step="0.05" value="0">
+      </label>
+      <label>Move up–down
+        <input id="panY" type="range" min="-1" max="1" step="0.05" value="0">
+      </label>
+    </div>
+
+    <div class="group">
+      <h2>Lettering</h2>
+      <label>Title
+        <input id="caption" type="text" maxlength="28" value="SUNSET HEIST">
+      </label>
+      <label>Kicker
+        <input id="kicker" type="text" maxlength="40" value="BENTARA · VICE CITY">
+      </label>
+      <label>Title size <span id="captionSizeVal">100%</span>
+        <input id="captionSize" type="range" min="0.6" max="1.4" step="0.05" value="1">
+      </label>
+      <label>Title position
+        <select id="captionPos">
+          <option value="bottom" selected>Bottom</option>
+          <option value="top">Top</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="group export">
+      <h2>Export</h2>
+      <div class="row" role="group" aria-label="Export size">
+        <button type="button" data-size="1920x1080" class="on">1920 × 1080</button>
+        <button type="button" data-size="1080x1080">1080 × 1080</button>
+        <button type="button" data-size="1080x1350">1080 × 1350</button>
+      </div>
+      <button id="export" type="button" class="big">Export PNG</button>
+      <p id="status" role="status">Two sample photos loaded — pick a size and export.</p>
+    </div>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <section class="preview" aria-label="Live cover preview">
+    <canvas id="cover" width="680" height="383" aria-label="The cover, live preview"></canvas>
+    <p class="hint">Live preview — exactly what the PNG will look like.</p>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>
